@@ -1,0 +1,13 @@
+
+export MODELSIM_HOME=/tools/modelsim_ase
+export PATH=$PATH:$MODELSIM_HOME/bin
+export MTI_VCO_MODE=32  # Force 32-bit mode
+export LD_LIBRARY_PATH=/usr/lib/i386-linux-gnu:$MODELSIM_HOME/linuxaloem:$LD_LIBRARY_PATH
+
+## Launch Vivado Ide
+source /tools/Xilinx/Vivado/2024.1/settings64.sh
+vivado &
+
+## Install Numato lab BSP files:- 
+Download BSP files from - https://github.com/numato/vivadoBSP
+Copy these folders to <path_to_Vivado>/<version>/data/xhub/boards/XilinxBoardStore/boards/ folder.
