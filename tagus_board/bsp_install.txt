@@ -1,0 +1,3 @@
+
+
+sudo cp -r Tagus/ /tools/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx
