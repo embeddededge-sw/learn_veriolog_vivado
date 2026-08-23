@@ -1,3 +1,9 @@
 
 
+Step I. Download BSP from below github
+https://github.com/NumatoLab/VivadoBSP/tree/main
+
+
+Step II. Install wherE Vivado boards are installed
+
 sudo cp -r Tagus/ /tools/Xilinx/Vivado/2024.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx
