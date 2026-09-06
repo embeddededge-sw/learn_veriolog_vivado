@@ -1,0 +1,69 @@
+
+Mastering XDC constraints: -
+==============================
+XDC = Xilinx Design Constraints (based on Tcl syntax). 
+Using XDC file we are telling the tools:
+
+· Where pins are (physical mapping)
+· When signals arrive (timing)
+· What timing matters (clock definitions)
+
+
+Step 1: Copy & Modify (Day 1)
+--------------------------------
+· Start with Digilent's official Cora Z7 master XDC (Cora-Z7-07S-Master.xdc or Cora-Z7-10-Master.xdc)
+· Don't write from scratch – modify existing ones
+· Comment/uncomment lines to enable peripherals (LEDs, buttons, PMODs)
+
+Step 2: Understand the 3 Constraint Types
+------------------------------------------
+1. Physical: set_property PACKAGE_PIN W13 [get_ports {led[0]}]
+2. Clock: create_clock -period 10.0 [get_ports clk]
+3. Timing: set_input_delay -clock clk 2.0 [get_ports data_in]
+
+
+Step 3: Read the Report! (Most Important)
+----------------------------------------------
+After implementation, open Timing Summary Report and:
+
+· Check WNS (Worst Negative Slack) – must be positive!
+· If negative → your constraints are wrong or design is too slow
+· Cora Z7 runs at 125MHz (8ns period)
+
+Cora Z7 Specifics to Memorize
+-------------------------------
+Peripheral Pins Voltage
+4 LEDs W13, V13, U14, U13 3.3V
+2 Buttons N17, M18 3.3V
+4 PMODs JA/JB/JC/JD headers 3.3V
+100MHz Clock W5 (external oscillator) 1.8V
+
+Critical: Always add set_property IOSTANDARD LVCMOS33 [get_ports ...] for 3.3V pins!
+
+
+Common Beginner Mistakes
+============================
+Mistake Fix
+Forgetting IOSTANDARD Add it for EVERY port
+Copying constraints for wrong board Use Cora-specific, not Arty/Zedboard
+Not understanding clock naming [get_ports clk_100MHz] must match top-level port name
+Ignoring timing closure Check WNS after every build
+Mixing up active-high/low Buttons are active low (0 = pressed)
+
+
+Recommended Resources
+=======================
+1. UG903 – Vivado Design Suite User Guide: Using Constraints (Xilinx's official bible)
+2. Cora Z7 Schematic – Know your pin locations visually
+3. Digilent's XDC Tutorial – Has excellent commented examples
+4. Practice: Write constraints for a simple counter → LEDs first
+
+
+Progression Plan
+------------------
+Week Goal
+1 Modify existing XDC to blink LEDs with button
+2 Add PMOD constraints for 7-seg or SPI
+3 Write clock constraints for your own 50MHz generated clock
+4 Add set_input_delay/set_output_delay for external ADC/DAC
+5 Constrain multiple clocks (with set_clock_groups)
